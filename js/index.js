@@ -12,16 +12,22 @@ const bodyItem = document.querySelector("body");
 //bodyItem.style.backgroundColor = clr;
 const butStart = document.querySelector('button[data-action="start"]');
 const butStop = document.querySelector('button[data-action="stop"]');
-//console.dir(butStart);
+console.dir(butStart);
 //console.dir(butStop);
-butStart.addEventListener("click", (e) => {
-  //console.log("clicked 'START'");
+let timerId = null;
+butStart.addEventListener("click", () => {
+  console.log("clicked 'START'");
   //console.log(colors.length);
-  const rez = randomIntegerFromInterval(0, colors.length);
-  console.log(rez);
-  bodyItem.style.backgroundColor = colors[rez];
+  timerId = setInterval(() => {
+    console.log("setInterval");
+    bodyItem.style.backgroundColor =
+      colors[randomIntegerFromInterval(0, colors.length)];
+  }, 1000);
+  butStart.disabled = true;
 });
 
 butStop.addEventListener("click", (e) => {
   console.log("clicked 'STOP'");
+  if (timerId != null) clearTimeout(timerId);
+  butStart.disabled = false;
 });
